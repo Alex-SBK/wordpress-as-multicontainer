@@ -1,0 +1,11 @@
+---
+
+- name: Install bash completion
+  apt:
+    name: bash-completion
+    state: latest
+- name: install completion script for Docker
+  get_url:
+    url: "https://raw.githubusercontent.com/docker/compose/1.27.4/contrib/completion/bash/docker-compose"
+    dest: "/etc/bash_completion.d/docker-compose"
+    mode: 0755

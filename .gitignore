@@ -1,0 +1,6 @@
+workspace.code-workspace
+.vagrant/
+wordpress/*
+!wordpress/.gitkeep
+mysql/*
+!mysql/.gitkeep

@@ -1,0 +1,33 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+
+    # Update
+    - name: apt-get update
+      apt:
+        update_cache: yes
+
+    - name: Upgrade all apt packages
+      apt:
+        upgrade: dist
+        force_apt_get: yes
+
+    # Install Git
+    - name: "Include install latest git"
+      include_tasks: "install_latest_git.yml"
+
+    # Install Docker
+    - name: "Include install latest Docker"
+      include_tasks: "install_latest_docker.yml"
+
+    # Install docker-compose
+    - name: "Include docker-compose"
+      include_tasks: "install_docker_compose.yml"
+
+    # Install bash competitions for docker
+    - name: "nstall bash competitions for docker"
+      include_tasks: "install_bash_comp.yml"
+
+    

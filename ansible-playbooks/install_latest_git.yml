@@ -1,0 +1,14 @@
+---
+
+- name: Add git stable repository from PPA and install its signing key on Ubuntu target
+  apt_repository:
+    repo: ppa:git-core/ppa
+
+- name: apt-get update
+  apt:
+   update_cache: yes
+
+- name: Install the package "git"
+  apt:
+    name: git
+    state: latest
