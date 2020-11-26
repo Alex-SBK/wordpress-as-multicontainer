@@ -13,6 +13,7 @@ services:
     build:
       context: ./dockerfiles
       dockerfile: wordpress-php-fpm.dockerfile
+    # image: wordpress:php7.3-fpm-alpine  
     
     volumes:
       - ./wordpress:/var/www/html/
@@ -30,6 +31,6 @@ services:
       - ./nginx:/etc/nginx/conf.d
       - ./wordpress:/var/www/html/
     ports:
-      - 8080:80
+      - 8082:80
     links:
       - "wordpress"

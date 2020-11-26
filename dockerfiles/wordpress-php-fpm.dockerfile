@@ -92,7 +92,7 @@ RUN set -ex; \
 
 VOLUME /var/www/html
 
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY docker-wordpress-entrypoint.sh /usr/local/bin/
 
-#ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["docker-wordpress-entrypoint.sh"]
 CMD ["php-fpm"]
