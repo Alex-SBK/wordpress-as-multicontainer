@@ -34,3 +34,11 @@ services:
       - 8082:80
     links:
       - "wordpress"
+
+  jenkins:
+    build:
+      context: ./dockerfiles
+      dockerfile: jenkins-container.dockerfile
+    ports:
+      - 8083:8080
+    env_file: ./env/jenkins.env
