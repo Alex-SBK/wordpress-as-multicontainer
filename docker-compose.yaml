@@ -41,6 +41,7 @@ services:
   jenkins:
     build:
       context: .
+      dockerfile: ./dockerfiles/jenkins-container.dockerfile
     ports:
       - 8083:8080
     env_file: ./env/jenkins.env
