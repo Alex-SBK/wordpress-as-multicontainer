@@ -1,6 +1,6 @@
 workspace.code-workspace
 .vagrant/
-wordpress/*
-!wordpress/.gitkeep
-mysql/*
-!mysql/.gitkeep
+wordpress-application/wordpress/*
+!wordpress-application/wordpress/.gitkeep
+wordpress-application/mysql/*
+!wordpress-application/mysql/.gitkeep
