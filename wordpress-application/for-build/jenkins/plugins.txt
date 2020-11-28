@@ -1,0 +1,3 @@
+git:latest
+chucknorris:latest
+configuration-as-code:latest

@@ -1,0 +1,47 @@
+version: "3.8"
+
+services: 
+  mysql:
+    image: mariadb
+    volumes:
+      - ./mysql:/var/lib/mysql
+    env_file:
+      - ./env/db.env
+    restart: always
+
+  wordpress:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/wordpress-php-fpm.dockerfile
+    # image: wordpress:php7.3-fpm-alpine  
+    
+    volumes:
+      - ./wordpress:/var/www/html/
+    depends_on:
+      - mysql
+    env_file:
+      - ./env/wordpress.env
+    links:
+      - mysql
+    restart: always
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./wordpress:/var/www/html/
+    ports:
+      - 8082:80
+    depends_on:
+      - mysql
+      - wordpress  
+    links:
+      - "wordpress"
+
+  jenkins:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/jenkins-container.dockerfile
+    ports:
+      - 8083:8080
+    env_file: ./env/jenkins.env
