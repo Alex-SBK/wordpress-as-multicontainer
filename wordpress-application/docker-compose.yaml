@@ -2,9 +2,14 @@ version: "3.8"
 
 services: 
   mysql:
-    image: mariadb
+    # image: mariadb
+    build:
+      context: .
+      dockerfile: ./dockerfiles/mariadb-container.dockerfile
+
     volumes:
-      - ./mysql:/var/lib/mysql
+      - mysql:/var/lib/mysql
+        # - mysql:/var/lib/mysql
     env_file:
       - ./env/db.env
     restart: always
@@ -45,3 +50,6 @@ services:
     ports:
       - 8083:8080
     env_file: ./env/jenkins.env
+
+volumes:
+  mysql:
