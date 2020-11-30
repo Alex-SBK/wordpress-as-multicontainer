@@ -1,0 +1,7 @@
+---
+
+- name: Run
+  shell: "docker-compose -f /wordpress-application/docker-compose.yaml up -d"
+  args:
+    executable: /bin/bash
+         

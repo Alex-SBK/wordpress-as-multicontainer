@@ -1,6 +1,6 @@
 # Main Server
 [main]
-10.8.8.95
+192.168.60.20
 
 # Variables that will be applied to all servers
  [main:vars]

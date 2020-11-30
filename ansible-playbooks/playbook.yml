@@ -32,7 +32,7 @@
 
     # Docker Remote API enable on docker host
     - name: "enable Docker Remote API on docker host"
-      include_tasks: "install_bash_comp.yml"
-    
+      include_tasks: "configure_docker_remote_api.yml"
 
-    
+    - name: "Run docker-compose up"
+      include_tasks: "start-containers.yml"
