@@ -1,0 +1,3 @@
+# Main Server
+[MAIN_SERVERS]
+wordpress-as-mult-cont ansible_host=192.168.60.20

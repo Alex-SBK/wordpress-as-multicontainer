@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+
+  - name: "install java for debian"
+    include_tasks: install_java.yml
+    
+
+# Next Play : install jenkins Role
+- hosts: all
+  become: yes
+
+  roles:
+  - { role: geerlingguy.jenkins, when: ansible_system == 'Linux'}

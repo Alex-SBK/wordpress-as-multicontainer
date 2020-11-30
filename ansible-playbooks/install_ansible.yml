@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+# tasks file for install Ansible to Debian systems
+
+
+  - name: Install latest version of ansible"
+    apt:
+      name: ansible
+      state: latest
+   
