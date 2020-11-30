@@ -10,3 +10,4 @@ plugin_list:
   - "git"
   - "configuration-as-code"
   - "docker-plugin"
+  - "docker-compose-build-step"
