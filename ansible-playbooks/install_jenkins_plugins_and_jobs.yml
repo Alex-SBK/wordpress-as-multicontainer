@@ -1,35 +1,33 @@
 ---
-- hosts: all
-  become: yes
 
-  tasks:
-    - name: Download CLI jar
-      get_url: 
-        url:  "http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar"
-        dest: "/opt/jenkins-cli.jar"
 
-    - name: install bunch of jenkins plugins
-      shell:
-        cmd: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} install-plugin {{ item }}"
-      with_items: "{{ plugin_list }}"
+- name: Download CLI jar
+  get_url: 
+    url:  "http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar"
+    dest: "/opt/jenkins-cli.jar"
 
-    - name: Restart Jenkins to make the plugin data available
-      service:
-        name: jenkins
-        state: restarted  
+- name: install bunch of jenkins plugins
+  shell:
+    cmd: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} install-plugin {{ item }}"
+  with_items: "{{ plugin_list }}"
 
-    - name: Wait for Jenkins to start up before proceeding.
-      uri:
-        url: "http://127.0.0.1:8080/cli/"
-        method: GET
-        return_content: "yes"
-        timeout: 5
-        body_format: raw
-        follow_redirects: "no"
-        status_code: 200,403
-      register: result
-      until: (result.status == 403 or result.status == 200) and (result.content.find("Please wait while") == -1)
-      retries: "70"
-      delay: "10"
-      changed_when: false
-      check_mode: false
+- name: Restart Jenkins to make the plugin data available
+  service:
+    name: jenkins
+    state: restarted  
+
+- name: Wait for Jenkins to start up before proceeding.
+  uri:
+    url: "http://127.0.0.1:8080/cli/"
+    method: GET
+    return_content: "yes"
+    timeout: 5
+    body_format: raw
+    follow_redirects: "no"
+    status_code: 200,403
+  register: result
+  until: (result.status == 403 or result.status == 200) and (result.content.find("Please wait while") == -1)
+  retries: "70"
+  delay: "10"
+  changed_when: false
+  check_mode: false

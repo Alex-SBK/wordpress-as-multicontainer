@@ -10,4 +10,14 @@
     apt:
       name: ansible
       state: latest
+
+  - name: Add the user 'jenkins' into docker group
+    user:
+      name: jenkins
+      shell: /bin/bash
+      groups: docker
+      append: yes    
+  
+  - name: Unconditionally reboot the machine with all defaults
+    reboot:
    

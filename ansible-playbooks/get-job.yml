@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes
+    
+  tasks:
+    - name: Download CLI jar
+      get_url: 
+        url:  "http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar"
+        dest: "/opt/jenkins-cli.jar"
+       
+    - name: Get job wordpress-application
+      shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} get-job wordpress-application > /wordpress-application/jenkins-jobs/wordpress-application.xml"

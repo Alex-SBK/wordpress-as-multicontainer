@@ -33,24 +33,25 @@ services:
 
   nginx:
     image: nginx:alpine
+    
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - ./wordpress:/var/www/html/
     ports:
-      - 8082:80
+      - $NGINX_FORWARDED_PORT:80
     depends_on:
       - mysql
       - wordpress  
     links:
       - "wordpress"
 
-  jenkins:
-    build:
-      context: .
-      dockerfile: ./dockerfiles/jenkins-container.dockerfile
-    ports:
-      - 8083:8080
-    env_file: ./env/jenkins.env
+  # jenkins:
+  #   build:
+  #     context: .
+  #     dockerfile: ./dockerfiles/jenkins-container.dockerfile
+  #   ports:
+  #     - 8083:8080
+  #   env_file: ./env/jenkins.env
 
 volumes:
   mysql:

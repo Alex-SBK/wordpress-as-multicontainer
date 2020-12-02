@@ -62,4 +62,47 @@
 
   tasks:
     - name: "Include install_jenkins_plugins"
-      include: install_jenkins_plugins_and_jobs.yml 
+      include: install_jenkins_plugins_and_jobs.yml
+
+    - name: Add the user 'jenkins' into docker group
+      user:
+        name: jenkins
+        shell: /bin/bash
+        groups: 
+          - docker
+        append: yes  
+
+    - name: Unconditionally reboot the machine with all defaults
+      reboot:
+          msg: "Reboot initiated by Ansible"
+
+
+    - name: Install latest version of ansible"
+      apt:
+        name: ansible
+        state: latest
+    
+    - name: Download CLI jar
+      get_url: 
+        url:  "http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar"
+        dest: "/opt/jenkins-cli.jar"
+
+    - name: SET job my-maven-java-project
+      shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} create-job wordpress-application < /wordpress-application/jenkins-jobs/wordpress-application.xml"
+     
+    - name: Creates directory
+      file:
+        path: /var/lib/jenkins/workspace/wordpress-application
+        state: directory
+
+    - name: Create a symbolic link
+      file:
+        src: /wordpress-application
+        dest: /var/lib/jenkins/workspace/wordpress-application
+        force: yes
+        state: link
+
+    - name: START job wordpress-application
+      shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} -webSocket build wordpress-application"
+    
+
