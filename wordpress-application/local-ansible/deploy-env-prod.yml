@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+
+  tasks:
+   - name: Read-write git checkout from github
+     git:
+      repo: https://github.com/Alex-SBK/wordpress-as-multicontainer.git
+      dest: /home/vagrant/wordpress-as-multicontainer
