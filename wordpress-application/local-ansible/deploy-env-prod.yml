@@ -7,4 +7,7 @@
    - name: Read-write git checkout from github
      git:
       repo: https://github.com/Alex-SBK/wordpress-as-multicontainer.git
-      dest: /home/vagrant/wordpress-as-multicontainer
+      dest: /home/vagrant/app
+  
+   - name: Deploy multicontainer web application using docker-compose
+     shell: 'docker-compose  -p prod -f /home/vagrant/app/wordpress-application/docker-compose.yml --env-file /home/vagrant/app/wordpress-application/docker-compose-env/env.prod  up -d'
