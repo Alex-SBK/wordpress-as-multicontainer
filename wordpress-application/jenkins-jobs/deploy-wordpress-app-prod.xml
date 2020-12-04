@@ -4,6 +4,9 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
+    <org.jenkinsci.plugins.sharedworkspace.SharedWorkspace plugin="shared-workspace@1.0.2">
+      <name>NONE</name>
+    </org.jenkinsci.plugins.sharedworkspace.SharedWorkspace>
     <jenkins.model.BuildDiscarderProperty>
       <strategy class="hudson.tasks.LogRotator">
         <daysToKeep>-1</daysToKeep>
@@ -37,7 +40,10 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>docker-compose  -p prod -f ./wordpress-application/docker-compose.yml --env-file ./wordpress-application/docker-compose-env/env.prod  up -d</command>
+      <command>cat ./wordpress-application/local-ansible/deploy-env-prod.yml
+pwd
+whoami
+sudo ansible-playbook ./wordpress-application/local-ansible/deploy-env-prod.yml</command>
       <configuredLocalRules/>
     </hudson.tasks.Shell>
   </builders>

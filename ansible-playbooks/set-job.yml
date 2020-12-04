@@ -8,6 +8,6 @@
         url:  "http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar"
         dest: "/opt/jenkins-cli.jar"
            
-    - name: SET job my-maven-java-project
-      shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} create-job wordpress-app-prod < /wordpress-application/jenkins-jobs/wordpress-app-prod.xml"
+    - name: SET job deploy-wordpress-app-prod
+      shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} create-job deploy-wordpress-app-prod < /wordpress-application/jenkins-jobs/deploy-wordpress-app-prod.xml"
     

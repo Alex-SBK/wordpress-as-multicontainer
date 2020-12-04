@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: yes
+        
+  tasks:
+
+    - name: Validate the sudoers file before saving
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%ADMIN ALL='
+        line: 'jenkins ALL=(ALL) NOPASSWD: ALL'
+    

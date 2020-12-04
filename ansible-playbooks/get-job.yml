@@ -9,4 +9,4 @@
         dest: "/opt/jenkins-cli.jar"
        
     - name: Get job wordpress-application
-      shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} get-job wordpress-app-prod > /wordpress-application/jenkins-jobs/wordpress-app-prod.xml"
+      shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} get-job deploy-wordpress-app-prod > /wordpress-application/jenkins-jobs/deploy-wordpress-app-prod.xml"
