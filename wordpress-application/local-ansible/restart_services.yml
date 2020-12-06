@@ -4,4 +4,10 @@
   become: yes
 
   tasks:
+  -  name: Read-write git checkout from github
+     git:
+      repo: https://github.com/Alex-SBK/wordpress-as-multicontainer.git
+      dest: /home/vagrant/wordpress-as-multicontainer-prod
     
+  - name: Deploy multicontainer web application using docker-compose
+    shell: 'docker-compose  -p prod -f /home/vagrant/wordpress-as-multicontainer-prod/wordpress-application/docker-compose.yml --env-file /home/vagrant/wordpress-as-multicontainer-prod/wordpress-application/docker-compose-env/env.prod  restart nginx'
