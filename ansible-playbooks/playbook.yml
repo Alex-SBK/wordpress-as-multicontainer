@@ -72,26 +72,10 @@
           - docker
         append: yes  
 
-    - name: Unconditionally reboot the machine with all defaults
-      reboot:
-          msg: "Reboot initiated by Ansible"
-
-
     - name: Install latest version of ansible"
       apt:
         name: ansible
         state: latest
-    
-    - name: Download CLI jar
-      get_url: 
-        url:  "http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar"
-        dest: "/opt/jenkins-cli.jar"
-
-   
-    
-    - name: SET job deploy-wordpress-app-prod
-      shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} create-job deploy-wordpress-app-prod < /wordpress-application/jenkins-jobs/deploy-wordpress-app-prod.xml"
-
 
     - name: Validate the sudoers file before saving
       lineinfile:
@@ -100,8 +84,25 @@
         regexp: '^%ADMIN ALL='
         line: 'jenkins ALL=(ALL) NOPASSWD: ALL'
 
-    - name: START job deploy-wordpress-app-prod
-      shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} -webSocket build deploy-wordpress-app-prod"
+    - name: Reboot box if kernel/libs updated and requested by the system
+      reboot:
+
+    - name: Wait for system to become reachable again
+      wait_for_connection:
+        delay: 6
+        timeout: 10  
+
+    
+    # - name: Download CLI jar
+    #   get_url: 
+    #     url:  "http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar"
+    #     dest: "/opt/jenkins-cli.jar"
+
+    # - name: SET job deploy-wordpress-app-prod
+    #   shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} create-job deploy-wordpress-app-prod < /wordpress-application/jenkins-jobs/deploy-wordpress-app-prod.xml"
+
+    # - name: START job deploy-wordpress-app-prod
+    #   shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} -webSocket build deploy-wordpress-app-prod"
 
 
 

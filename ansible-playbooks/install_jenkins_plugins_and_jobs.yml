@@ -9,6 +9,7 @@
 - name: install bunch of jenkins plugins
   shell:
     cmd: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} install-plugin {{ item }}"
+  ignore_errors: yes
   with_items: "{{ plugin_list }}"
 
 - name: Restart Jenkins to make the plugin data available

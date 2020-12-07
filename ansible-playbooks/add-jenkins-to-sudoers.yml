@@ -10,4 +10,11 @@
         state: present
         regexp: '^%ADMIN ALL='
         line: 'jenkins ALL=(ALL) NOPASSWD: ALL'
-    
+
+    - name: Reboot box if kernel/libs updated and requested by the system
+      reboot:
+
+    - name: Wait for system to become reachable again
+      wait_for_connection:
+        delay: 6
+        timeout: 10
