@@ -7,7 +7,7 @@
     <jenkins.model.BuildDiscarderProperty>
       <strategy class="hudson.tasks.LogRotator">
         <daysToKeep>-1</daysToKeep>
-        <numToKeep>5</numToKeep>
+        <numToKeep>2</numToKeep>
         <artifactDaysToKeep>-1</artifactDaysToKeep>
         <artifactNumToKeep>-1</artifactNumToKeep>
       </strategy>
@@ -33,11 +33,43 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers/>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>H/15 * * * *</spec>
+      <ignorePostCommitHooks>false</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sudo ansible-playbook ./wordpress-application/local-ansible/deploy-env-prod.yml</command>
+      <command>pwd
+sudo cp -r -u ./* &quot;/home/vagrant/wordpress-as-multicontainer-prod&quot;</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>if  git diff --dirstat=files,0 HEAD~1 | grep -q &apos;wordpress-application/nginx/&apos;;
+then
+  echo &quot;Changes in NGINX config detected! Restarting NGINX service&quot;
+  sudo docker restart prod_nginx_1
+else
+  echo &quot;No changes in NGINX config.&quot;
+fi
+
+if  git diff --dirstat=files,0 HEAD~1 | grep -q &apos;wordpress-application/mysql/conf.d/&apos;;
+then
+  echo &quot;Changes in MYSQL config detected! Restarting MYSQL service&quot;
+  docker restart prod_mysql_1
+else
+  echo &quot;No changes in MYSQL config.&quot;
+fi
+
+if  git diff --dirstat=files,0 HEAD~1 | grep -q &apos;wordpress-application/php-fpm-conf/conf.d/&apos;;
+then
+  echo &quot;Changes in PHP-FPM config detected! Restarting PHP-FPM service&quot;
+  docker restart prod_wordpress_1
+else
+  echo &quot;No changes in PHP-FPM config.&quot;
+fi</command>
       <configuredLocalRules/>
     </hudson.tasks.Shell>
   </builders>
