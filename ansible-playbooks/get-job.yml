@@ -10,3 +10,6 @@
        
     - name: Get job wordpress-application
       shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} get-job deploy-wordpress-app-prod > /wordpress-application/jenkins-jobs/deploy-wordpress-app-prod.xml"
+
+    - name: Get job wordpress-application
+      shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} get-job restart-services-on-config-update > /wordpress-application/jenkins-jobs/restart-services-on-config-update.xml"
