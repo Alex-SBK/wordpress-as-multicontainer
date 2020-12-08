@@ -4,3 +4,4 @@ wordpress-application/wordpress/*
 !wordpress-application/wordpress/.gitkeep
 wordpress-application/mysql/*
 !wordpress-application/mysql/.gitkeep
+!wordpress-application/mysql/conf.d
