@@ -23,8 +23,8 @@
     name: docker-ce
     state: latest
 
-- name: Sudo user mode for docker and user vagrant    
-  shell: "sudo usermod -aG docker vagrant"
+- name: user mode for docker and user vagrant    
+  shell: "usermod -aG docker vagrant"
   args:
    executable: /bin/bash
 

@@ -12,10 +12,10 @@ Vagrant.configure("2") do |config|
     dwci.vm.network :private_network, ip: "192.168.60.20"
   end
 
-  config.vm.synced_folder "./wordpress-application", "/wordpress-application"
-  config.vm.synced_folder "./wordpress-application/mysql", "/wordpress-application/mysql"
-  config.vm.synced_folder "./wordpress-application/wordpress", "/wordpress-application/wordpress"
-  config.vm.provision "shell", path: "shell-provision.sh"
+  config.vm.synced_folder "./wordpress-application/jenkins-jobs/", "/jenkins-jobs"
+  # config.vm.synced_folder "./wordpress-application/mysql", "/wordpress-application/mysql"
+  # config.vm.synced_folder "./wordpress-application/wordpress", "/wordpress-application/wordpress"
+  # config.vm.provision "shell", path: "./wordpress-application/shell-provision.sh"
 
   # Provision configuration for Ansible
   config.vm.provision  :ansible do |ansible|

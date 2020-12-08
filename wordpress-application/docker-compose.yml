@@ -10,7 +10,7 @@ services:
       # - ./mysql:/opt
     env_file:
       - ./env/db.env
-    restart: always
+    # restart: always
 
   wordpress:
     build:
@@ -32,7 +32,7 @@ services:
       - ./nginx:/etc/nginx/conf.d
       - ./wordpress:/var/www/html/
     ports:
-       - 8081:80      
+       - 8082:80      
     depends_on:
       - mysql
       - wordpress  
