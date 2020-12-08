@@ -105,10 +105,10 @@
       shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} -webSocket build deploy-wordpress-app-prod"
 
     - name: 'SET job: "restart-services-on-config-update"'
-      shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} create-job deploy-wordpress-app-prod < /jenkins-jobs/deploy-wordpress-app-prod.xml"
+      shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} create-job restart-services-on-config-update < /jenkins-jobs/restart-services-on-config-update.xml"
 
-    - name: 'START job: "restart-services-on-config-update"'
-      shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} -webSocket build deploy-wordpress-app-prod"
+    # - name: 'START job: "restart-services-on-config-update"'
+    #   shell: "java -jar /opt/jenkins-cli.jar -s http://127.0.0.1:8080/  -auth {{jenkins_admin_username}}:{{jenkins_admin_password}} -webSocket build restart-services-on-config-update"
 
 
     
